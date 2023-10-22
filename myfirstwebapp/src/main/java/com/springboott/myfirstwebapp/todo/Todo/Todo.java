@@ -10,6 +10,26 @@ import java.time.LocalDate;
 // after that, shift to database
 
 public class Todo {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTargetDate(LocalDate targetDate) {
+        this.targetDate = targetDate;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
     private int id;
     private String username;
     @Size(min=10, message = "Enter at least 10 characters")
