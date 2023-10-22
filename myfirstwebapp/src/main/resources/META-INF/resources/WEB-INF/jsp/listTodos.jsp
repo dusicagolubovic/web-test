@@ -15,6 +15,7 @@
                         <th> DESCRIPTION </th>
                         <th> TARGET DATE </th>
                         <th> IS COMPLETED </th>
+                        <th> </th>
                     </tr>
                  </thead>
                 <tbody>
@@ -24,11 +25,12 @@
                             <td>${todo.description}</td>
                             <td>${todo.targetDate}</td>
                             <td>${todo.done}</td>
+                            <td> <a href="delete-todo?id=${todo.id}" class="btn btn-warning">DELETE</a> </td>
                         </tr>
                      </c:forEach>
                 </tbody>
             </table>
-            <a href="add-todo" class="btn btn-success"> Add ToDo </a>
+            <a href="add-todo" class="btn btn-success"> Add To Do </a>
         </div>
         <script src="webjars/bootstrap/5.1.3/css/bootstrap.min.css"></script>
         <script src="webjars/jquery/3.6.0/jquery.min.js"></script>
