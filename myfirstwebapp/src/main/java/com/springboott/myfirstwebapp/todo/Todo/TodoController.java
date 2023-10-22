@@ -32,17 +32,19 @@ public class TodoController {
     }
 
     @RequestMapping(value= "add-todo", method = RequestMethod.GET)
-    public String showNewTodoPage() {
-
+    public String showNewTodoPage(ModelMap map) {
+        String username = (String)map.get("name");
+        Todo todo = new Todo(0, username, "", LocalDate.now().plusYears(1), false);
+        map.put("todo", todo);
         return "todo";
     }
 
     @RequestMapping(value= "add-todo", method = RequestMethod.POST)
-    public String addNewTodo(@RequestParam String description, ModelMap model) {
+    public String addNewTodo(ModelMap model, Todo todo) {
 
         // TODO: add processing a new todo item
         // dodajemo redirekciju, da bismo imali informacije o pre, da se ne bi pravio novi reques
-        todoService.addTodo((String)model.get("name"), description, LocalDate.now().plusYears(1), false);
+        todoService.addTodo((String)model.get("name"), todo.getDescription(), LocalDate.now().plusYears(1), false);
         return "redirect:list-todo";
     }
 }
