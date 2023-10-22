@@ -1,8 +1,10 @@
 package com.springboott.myfirstwebapp.todo.Todo;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,15 +36,19 @@ public class TodoController {
     @RequestMapping(value= "add-todo", method = RequestMethod.GET)
     public String showNewTodoPage(ModelMap map) {
         String username = (String)map.get("name");
-        Todo todo = new Todo(0, username, "", LocalDate.now().plusYears(1), false);
+        Todo todo = new Todo(0, username, "Default description", LocalDate.now().plusYears(1), false);
         map.put("todo", todo);
         return "todo";
     }
 
     @RequestMapping(value= "add-todo", method = RequestMethod.POST)
-    public String addNewTodo(ModelMap model, Todo todo) {
-
+    public String addNewTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
         // TODO: add processing a new todo item
+
+        if (result.hasErrors()) {
+            // if there's error return to the todo page
+            return "todo";
+        }
         // dodajemo redirekciju, da bismo imali informacije o pre, da se ne bi pravio novi reques
         todoService.addTodo((String)model.get("name"), todo.getDescription(), LocalDate.now().plusYears(1), false);
         return "redirect:list-todo";
